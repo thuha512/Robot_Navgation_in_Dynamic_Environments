@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robot Navigation Simulator</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <p class="eyebrow">AI SEARCH · DYNAMIC ENVIRONMENT</p>
+      <h1>Robot Navigation Simulator</h1>
+      <p class="subtitle">A* Search · Dynamic Obstacles · Replanning</p>
+    </div>
+    <div class="status-pill" id="status">Ready</div>
+  </header>
+
+  <main class="layout">
+    <section class="board-panel panel">
+      <div class="panel-heading">
+        <div><h2>Environment Grid</h2><p>20 × 20 cells · Click a cell to add/remove a wall</p></div>
+        <div class="legend">
+          <span><i class="dot robot"></i>Robot</span>
+          <span><i class="dot goal"></i>Goal</span>
+          <span><i class="dot wall"></i>Static</span>
+          <span><i class="dot moving"></i>Dynamic</span>
+          <span><i class="dot path"></i>Path</span>
+        </div>
+      </div>
+      <div class="grid-wrap"><div id="grid" class="grid" aria-label="20 by 20 simulation grid"></div></div>
+      <div class="toolbar">
+        <button class="primary" id="startBtn">▶ Start</button>
+        <button id="pauseBtn">Ⅱ Pause</button>
+        <button id="stepBtn">Step</button>
+        <button class="secondary" id="resetBtn">↻ Reset</button>
+        <label class="speed-control">Speed <input id="speed" type="range" min="100" max="1000" step="50" value="450"><span id="speedValue">450 ms</span></label>
+      </div>
+      <p class="hint">Click an empty cell to add a static obstacle. Click a static obstacle to remove it. Start and Goal cannot be blocked.</p>
+    </section>
+
+    <aside class="side-column">
+      <section class="panel metrics">
+        <h2>Simulation Metrics</h2>
+        <div class="metric-grid">
+          <div class="metric"><span>Time-step</span><strong id="timeStep">0</strong></div>
+          <div class="metric"><span>Replanning</span><strong id="replans">0</strong></div>
+          <div class="metric"><span>Path length</span><strong id="pathLength">0</strong></div>
+          <div class="metric"><span>Nodes explored</span><strong id="nodes">0</strong></div>
+          <div class="metric"><span>Steps taken</span><strong id="steps">0</strong></div>
+          <div class="metric"><span>Robot position</span><strong id="position">(0, 0)</strong></div>
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Environment Settings</h2>
+        <div class="coordinate-row">
+          <label>Start row <input id="startRow" type="number" min="0" max="19" value="0"></label>
+          <label>Start col <input id="startCol" type="number" min="0" max="19" value="0"></label>
+        </div>
+        <div class="coordinate-row">
+          <label>Goal row <input id="goalRow" type="number" min="0" max="19" value="19"></label>
+          <label>Goal col <input id="goalCol" type="number" min="0" max="19" value="19"></label>
+        </div>
+        <button id="applyBtn" class="full">Apply Start / Goal</button>
+        <p class="hint">Changing Start / Goal resets the robot and replans.</p>
+      </section>
+      <section class="panel">
+        <h2>Dynamic Obstacles</h2>
+        <div id="obstacleList" class="obstacle-list"></div>
+      </section>
+      <section class="panel event-panel">
+        <h2>Simulation Event</h2>
+        <p id="event">Initial path found</p>
+      </section>
+    </aside>
+  </main>
+  <footer>Robot Navigation · A* with Dynamic Obstacles and Replanning</footer>
+  <script src="/main.js"></script>
+</body>
+</html>
